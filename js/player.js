@@ -1,26 +1,39 @@
-class Player {
+class Player extends Sprite {
     constructor({
-        collisionBlocks = []
+        collisionBlocks = [],
+        src,
+        frameRate
     }) {
+        super({src:src , frameRate:frameRate})
         this.gravity = .05
         this.position = { x: 200, y: 200 }
         this.velocity = { x: 0, y: 0 }
-        this.width = 30
-        this.height = 30
+      
         this.sides = {
             bottom: this.position.y + this.height
         }
         this.collisionBlocks = collisionBlocks
     }
-    draw() {
-        c.fillStyle = "red"
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
-    }
+  
 
     update() {
-        this.position.x += this.velocity.x
-   
+        
+        c.fillStyle = "rgba(0,0,255,0.5)"
+        c.fillRect(this.position.x, this.position.y, this.width,
+            this.height
+        )
 
+        this.hitbox = {
+            position:{
+                x:this.position.x + 60,
+                y:this.position.y + 38
+            },
+            width : 50,
+            height:50
+        }
+
+        c.fillRect(this.hitbox.position.x, this.hitbox.position.y, this.hitbox.width, this.hitbox.height)
+        this.position.x += this.velocity.x
 
         for (let i = 0; i < this.collisionBlocks.length; i++) {
             const collisionBlock = this.collisionBlocks[i]
@@ -57,6 +70,7 @@ class Player {
              
                     if(this.velocity.y < 0){
                         this.velocity.y = 0
+
                         this.position.y = collisionBlock.position.y + collisionBlock.height + 0.01
                         console.log("yes")
                         break

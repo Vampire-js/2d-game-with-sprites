@@ -9,7 +9,7 @@ const bg1 = new Sprite({position:{
     y:0
 },
 src: './img/backgroundLevel1.png'})
-const player = new Player({collisionBlocks})
+const player = new Player({collisionBlocks ,src:"./img/king/idle.png" , frameRate:11})
 
 
 const animate = () => {
